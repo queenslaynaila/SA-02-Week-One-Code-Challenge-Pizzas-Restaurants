@@ -1,7 +1,11 @@
 class RestaurantPizzasController < ApplicationController
   def create
     restaurant_pizza = RestaurantPizza.create(pizza_params)
-    render json: restaurant_pizza.pizza, status: :created
+    if restaurant_pizza
+      render json: restaurant_pizza.pizza, status: :created
+    else
+      render json: { errors:"validation errors" }, status: :unprocessable_entity
+    end
   end
 
   private

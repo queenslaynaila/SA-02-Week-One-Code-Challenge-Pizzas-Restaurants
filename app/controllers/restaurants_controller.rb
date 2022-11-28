@@ -12,9 +12,14 @@ class RestaurantsController < ApplicationController
 
   def destroy
     restaurant = find_restaurant
-    restaurant.destroy
-    head :no_content
+    if restaurant
+      restaurant.destroy
+       head :no_content, status: 200
+    else
+      render json: { errors:"Restaurant not found" }, status: :unprocessable_entity
+    end
   end
+
 
   private
 
